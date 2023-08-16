@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ post.title }}
+{% endblock title %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+<h2>Создан: {{ post.date_c }}, изменен: {{ post.date_u }}</h2>
+<h2>Автор: {{ post.author }}</h2>
+{% autoescape off %}
+{{ post.content }}
+{% endautoescape %}
+
+{% if user == post.author %}
+<a href="{% url 'updatepost' post.id %}" class="btn btn-primary">Редактировать</a>
+<a href="{% url 'deletepost' post.id %}" class="btn btn-primary">Удалить</a>
+{% elif user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Отправить отклик" class="btn btn-primary">
+</form>
+{% endif %}
+
+<hr>
+<a href="{% url 'home' %}" class="btn btn-primary">Вернуться на главную страницу</a>
+
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock title %}
+
+{% block content %}
+
+{% for p in posts %}
+<!--<div>-->
+<!--    <hr>-->
+<!--    <h2>{{ p.get_category_display }} !&ndash;&gt; {{ p.title }}</h2>-->
+<!--    <h3>{{ p.date_c }} {{ p.author }}</h3>-->
+<!--    {% autoescape off %}-->
+<!--    {{ p.content }}-->
+<!--    {% endautoescape %}-->
+
+<!--    <a class="btn btn-primary href="{% url 'showpost' p.id %}">-->
+<!--        <button>Смотреть</button>-->
+<!--    </a>-->
+<!--    {% if user == p.author %}-->
+<!--    <a class="btn btn-primary href="{% url 'updatepost' p.id %}">-->
+<!--        <button>Редактировать</button>-->
+<!--    </a>-->
+<!--    {% endif %}-->
+<!--    <hr>-->
+<!--</div>-->
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{ p.get_category_display }} => {{ p.title }}</h5>
+        <p class="card-text">
+            {% autoescape off %}
+            {{ p.content }}
+            {% endautoescape %}
+            {{ p.date_c }} {{ p.author }}
+        </p>
+        <a href="{% url 'showpost' p.id %}" class="btn btn-primary">Смотреть</a>
+        {% if user == p.author %}
+        <a href="{% url 'updatepost' p.id %}" class="btn btn-primary">Редактировать</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+{% include 'paginator.html' %}
+{% endblock content %}

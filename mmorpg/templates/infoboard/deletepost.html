@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Удаление
+{% endblock title %}
+
+{% block content %}
+
+<h1>Вы действительно хотите удалить данный пост?</h1>
+<h3>{{ post.title }}</h3>
+<h4>Создан: {{ post.date_c }}, изменен: {{ post.date_u }}</h4>
+<h4>Автор: {{ post.author }}</h4>
+{% autoescape off %}
+{{ post.content }}
+{% endautoescape %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить" class="btn btn-primary">
+</form>
+<hr>
+<a href="{% url 'showpost' post.id %}" class="btn btn-primary">
+    Назад к посту
+</a>
+<a href="{% url 'home' %}" class="btn btn-primary">
+    На главную страницу
+</a>
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Редактировать
+{% endblock title %}
+
+{% block content %}
+
+<h1>Редактировать обьявление</h1>
+<h2>Вы уверены, что хотите изменить пост?</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить изменения" class="btn btn-primary">
+</form>
+
+<hr>
+<a href="{% url 'home' %}" class="btn btn-primary">Вернуться на главную страницу</a>
+
+{% endblock content %}
